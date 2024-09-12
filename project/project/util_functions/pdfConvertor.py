@@ -14,8 +14,8 @@ def convert_file_to_pdf(file_path, output_dir):
     else:
         return None
     
-file_path = 'Put input file path'
-output_dir = 'Put Output File Directory'
+file_path = '<input file path>'
+output_dir = '<output directory path>'
 file = convert_file_to_pdf(file_path, output_dir)
 if file:
     print(f'File converted to {file}.')
