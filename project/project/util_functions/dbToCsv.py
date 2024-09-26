@@ -1,7 +1,7 @@
 import sqlite3
 import csv
 
-connection = sqlite3.connect("./../../db.sqlite3")
+connection = sqlite3.connect("db.sqlite3")
 cursor = connection.cursor()
 
 # Fetch the table data

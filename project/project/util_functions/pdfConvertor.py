@@ -14,8 +14,8 @@ def convert_file_to_pdf(file_path, output_dir):
     else:
         return None
     
-file_path = '<input file path>'
-output_dir = '<output directory path>'
+file_path = 'spreadsheet.csv'
+output_dir = '.'
 file = convert_file_to_pdf(file_path, output_dir)
 if file:
     print(f'File converted to {file}.')
