@@ -1,0 +1,22 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore environment variables
+.env
+
+# Ignore credentials or configuration files
+project/authentication/utils.py
+project/project/settings.py
+
+# Ignore IDE-specific files
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore logs
+*.log
+
+# Ignore virtual environments
+venv/
+myenv/

@@ -6,9 +6,9 @@ from django.shortcuts import render,get_object_or_404
 import os
 
 # Twilio credentials
-account_sid = 'AC8af0bcbb930845f03e2eda42dd5bc71f'
-auth_token = '209c487c768d4a78da05dbf23e1932db'
-twilio_phone_number = '+13346001897'
+account_sid = settings.TWILIO_ACCOUNT_SID
+auth_token = settings.TWILIO_AUTH_TOKEN
+twilio_phone_number = settings.TWILIO_PHONE_NUMBER
 
 client = Client(account_sid, auth_token)
 
