@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, environ
 
+env=environ.Env()
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -135,6 +137,6 @@ EMAIL_HOST_PASSWORD = 'hinw doyw wvuc cdzs'  # Your email password
 DEFAULT_FROM_EMAIL = 'vnjain2004@gmail.com'  # Default from address
 
 
-TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID','AC8af0bcbb930845f03e2eda42dd5bc71f')
-TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN','209c487c768d4a78da05dbf23e1932db')
-TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER','+13346001897')
+TWILIO_ACCOUNT_SID = env('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = env('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = env('TWILIO_PHONE_NUMBER')
