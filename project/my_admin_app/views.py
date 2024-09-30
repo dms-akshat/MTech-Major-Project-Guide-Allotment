@@ -41,6 +41,7 @@ def upload_csv(request):
                 # No existing file, so create a new entry
                 CSVFile.objects.create(file=csv_file, start_date=start_date, end_date=end_date)
 
+            execute_sql_script("db.sqlite3","csvToDb.sql")
             messages.success(request, "File uploaded successfully!")
             return redirect('csv_file_list')
         else:
@@ -64,3 +65,24 @@ def csv_file_list(request):
             return redirect('csv_file_list')  # Redirect if no file found
 
     return render(request, 'csv_list.html', {'csv_file': csv_file})
+
+
+def execute_sql_script(db_file: str, sql_file: str) -> None:
+    try:
+        # Command to execute the SQL script using sqlite3
+        command = ['sqlite3', db_file, f'.read {sql_file}']
+        
+        # Run the command
+        result = subprocess.run(command, check=True, text=True, capture_output=True)
+        
+        # Output the result
+        if result.stdout:
+            print("Output:", result.stdout)
+        if result.stderr:
+            print("Error:", result.stderr)
+        
+        print("SQL script executed successfully.")
+    except subprocess.CalledProcessError as e:
+        print("An error occurred while executing the SQL script:", e)
+
+
