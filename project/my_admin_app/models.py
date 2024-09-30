@@ -5,5 +5,7 @@ class CSVFile(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
 
-    def __str__(self):
-        return self.file.name
+def __str__(self):
+    # Return only the file's name (without the directory structure)
+    return os.path.basename(self.file.name)
+
