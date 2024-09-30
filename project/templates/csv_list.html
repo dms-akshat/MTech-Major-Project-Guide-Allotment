@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV File List</title>
+  </head>
+  <body>
+    <h1>Uploaded CSV Files</h1>
+    {% if csv_file %}
+    <ul>
+      <li>
+        File: {{ csv_file.file.name }}<br />
+        Start Date: {{ csv_file.start_date }}<br />
+        End Date: {{ csv_file.end_date }}<br />
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit">Download</button>
+          <!-- Download button -->
+        </form>
+      </li>
+    </ul>
+    {% else %}
+    <p>No CSV files uploaded yet.</p>
+    {% endif %}
+    <a href="{% url 'upload_csv' %}">Upload Another CSV File</a>
+    <!-- Link to the upload page -->
+  </body>
+</html>
