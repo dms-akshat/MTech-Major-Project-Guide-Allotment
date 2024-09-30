@@ -15,7 +15,9 @@ def upload_csv(request):
             csv_file = request.FILES['csv_file']
             start_date = formss.cleaned_data['start_date']
             end_date = formss.cleaned_data['end_date']
-
+            if(start_date >= end_date):
+                messages.error(request, "End date cannot be before start date")
+                return redirect('upload_csv')
             # Check the file extension (Allow only CSV or XLSX)
             file_extension = os.path.splitext(csv_file.name)[1].lower()
             if file_extension not in ['.csv', '.xlsx']:
