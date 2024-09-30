@@ -15,7 +15,7 @@
         /* Navigation Bar */
         .navbar {
             background-color: #2c3e50;
-            padding: 15px 20px; /* Added horizontal padding */
+            padding: 15px 20px;
             color: #ecf0f1;
             display: flex;
             justify-content: space-between;
@@ -54,15 +54,15 @@
             max-width: 700px;
             margin: 40px auto;
             background-color: white;
-            padding: 30px; /* Increased padding for a more spacious layout */
+            padding: 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px; /* Rounded corners */
+            border-radius: 5px;
         }
 
         h2 {
             color: #34495e;
             margin-bottom: 20px;
-            text-align: center; /* Centered heading */
+            text-align: center;
         }
 
         form {
@@ -77,19 +77,19 @@
             margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box; /* Ensure padding is included in width */
+            box-sizing: border-box;
         }
 
         button {
             background-color: #3498db;
             color: white;
-            padding: 12px 20px; /* Increased padding for buttons */
+            padding: 12px 20px;
             border: none;
             cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
-            width: 100%; /* Full width button */
-            transition: background-color 0.3s; /* Smooth transition */
+            width: 100%;
+            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -104,17 +104,23 @@
         }
 
         .error {
-            background-color: #e74c3c; /* Error background color */
-            color: white; /* Error text color */
+            background-color: #e74c3c;
+            color: white;
         }
 
         .success {
-            background-color: #2ecc71; /* Success background color */
-            color: white; /* Success text color */
+            background-color: #2ecc71;
+            color: white;
         }
 
         .messages p {
-            margin: 0; /* Remove margin from messages */
+            margin: 0;
+        }
+
+        /* Field error messages */
+        .field-error {
+            color: #e74c3c; /* Error text color */
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -126,13 +132,13 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Upload CSV</a></li>
             <li><a href="#">Reports</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="{% url 'logout_view' %}">Logout</a></li>
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="container">
-        <h2>Upload a CSV file and Set Start/End Dates</h2>
+        <h2>Upload Guide and Student CSV Files</h2>
         
         <!-- Message area for errors/success -->
         <div class="messages">
@@ -145,7 +151,35 @@
         
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ formss.as_p }} <!-- Renders the form fields, including the file upload and date fields -->
+            
+            <!-- Guide CSV Upload -->
+            <label for="csv_file_guide">Upload Guide CSV File:</label>
+            <input type="file" id="csv_file_guide" name="csv_file_guide" accept=".csv" required />
+            {% if formss.csv_file_guide.errors %}
+                <div class="field-error">{{ formss.csv_file_guide.errors.0 }}</div>
+            {% endif %}
+
+            <!-- Student CSV Upload -->
+            <label for="csv_file_student">Upload Student CSV File:</label>
+            <input type="file" id="csv_file_student" name="csv_file_student" accept=".csv" required />
+            {% if formss.csv_file_student.errors %}
+                <div class="field-error">{{ formss.csv_file_student.errors.0 }}</div>
+            {% endif %}
+            
+            <!-- Start Date -->
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required />
+            {% if formss.start_date.errors %}
+                <div class="field-error">{{ formss.start_date.errors.0 }}</div>
+            {% endif %}
+
+            <!-- End Date -->
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required />
+            {% if formss.end_date.errors %}
+                <div class="field-error">{{ formss.end_date.errors.0 }}</div>
+            {% endif %}
+
             <button type="submit">Upload</button>
         </form>
     </div>

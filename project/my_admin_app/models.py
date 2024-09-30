@@ -1,7 +1,8 @@
 from django.db import models
 
 class CSVFile(models.Model):
-    file = models.FileField(upload_to='csvs/') 
+    guide_csv_file = models.FileField(upload_to='csvs/') 
+    student_csv_file = models.FileField(upload_to='csvs/')
     start_date = models.DateField()
     end_date = models.DateField()
 
