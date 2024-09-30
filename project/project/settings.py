@@ -134,9 +134,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Typically 587 for TLS or 465 for SSL
 EMAIL_USE_TLS = True  # Use TLS for secure email sending
 EMAIL_USE_SSL = False  # Set to True if using SSL
-EMAIL_HOST_USER = 'softwareproject68@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'vmyblyuhpvzcpgjh'  # Your email password
-DEFAULT_FROM_EMAIL = 'softwareproject68@gmail.com' # Default from address
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # Your email address
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # Your email password
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL') # Default from address
 EMAIL_TIMEOUT=30
 
 
