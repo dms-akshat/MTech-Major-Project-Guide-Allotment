@@ -123,3 +123,4 @@ def change_password_view(request, email):
         form = ChangePasswordForm()
 
     return render(request, 'authentication/change_password.html', {'form': form, 'user': user})
+

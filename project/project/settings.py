@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authentication'
+    'authentication',
+    'my_admin_app'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,9 +134,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Typically 587 for TLS or 465 for SSL
 EMAIL_USE_TLS = True  # Use TLS for secure email sending
 EMAIL_USE_SSL = False  # Set to True if using SSL
-EMAIL_HOST_USER = env('email')  # Your email address
-EMAIL_HOST_PASSWORD = env('password')  # Your email password
-DEFAULT_FROM_EMAIL = env('email')  # Default from address
+EMAIL_HOST_USER = 'softwareproject68@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'vmyblyuhpvzcpgjh'  # Your email password
+DEFAULT_FROM_EMAIL = 'softwareproject68@gmail.com' # Default from address
+EMAIL_TIMEOUT=30
 
 
 TWILIO_ACCOUNT_SID = env('TWILIO_ACCOUNT_SID')
