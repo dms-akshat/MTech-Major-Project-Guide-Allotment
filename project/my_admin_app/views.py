@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.http import HttpResponse
 from .forms import CSVUploadForm
 from .models import CSVFile
-import csv
+import csv,os
 from io import TextIOWrapper
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 def upload_csv(request):
     if request.method == 'POST':
@@ -13,8 +15,12 @@ def upload_csv(request):
             csv_file = request.FILES['csv_file']
             start_date = formss.cleaned_data['start_date']
             end_date = formss.cleaned_data['end_date']
-            
+
             # Check if the uploaded file is a valid CSV
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, "Invalid file type! Please upload a CSV file.")
+                return render(request, 'upload_csv.html', {'formss': formss})  # Render with form errors
+            
             try:
                 # Convert file to text wrapper for CSV reading
                 file_wrapper = TextIOWrapper(csv_file.file, encoding='utf-8')
@@ -22,16 +28,17 @@ def upload_csv(request):
                 headers = next(csv_reader)  # Read the first row as header
 
                 # Define your expected headers
-                expected_headers = ['Column1', 'Column2', 'Column3']  # Change these as per your CSV structure
+                expected_headers = ['Roll No', 'Name', 'Major CGPA', '1', '2', '3', '4' ,'5','6','7','8','9','10','11','12','13','14']
 
                 # Validate the headers
                 if headers != expected_headers:
                     messages.error(request, "Invalid CSV file format! Expected headers: " + ', '.join(expected_headers))
-                    return redirect('upload_csv')  # Redirect back to the form
+                    return render(request, 'upload_csv.html', {'formss': formss})  # Render with form errors
 
             except Exception as e:
                 messages.error(request, "Error reading CSV file: " + str(e))
-                return redirect('upload_csv')
+                return render(request, 'upload_csv.html', {'formss': formss})  # Render with form errors
+
             # Check if there's an existing CSV file
             existing_csv = CSVFile.objects.first()  # Get the first (and only) existing file
             if existing_csv:
@@ -46,11 +53,10 @@ def upload_csv(request):
 
             messages.success(request, "CSV file uploaded successfully!")
             return redirect('csv_file_list')  # Redirect to the list view after upload
-
     else:
-        forms = CSVUploadForm()
+        formss = CSVUploadForm()
 
-    return render(request, 'upload_csv.html', {'formss': forms})
+    return render(request, 'upload_csv.html', {'formss': formss})
 
 
 def csv_file_list(request):
