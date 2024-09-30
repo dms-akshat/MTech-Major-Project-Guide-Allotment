@@ -19,7 +19,6 @@ def upload_csv(request):
                 messages.error(request, "End date cannot be before start date")
                 return redirect('upload_csv')
             # Check the file extension (Allow only CSV or XLSX)
-            
             request.session['start_date'] = str(start_date)  # Convert to string if needed
             request.session['end_date'] = str(end_date)
             file_extension = os.path.splitext(csv_file.name)[1].lower()
