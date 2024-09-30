@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fill Preference Order</title>
+</head>
+<body>
+    <h1>Fill Preference Order</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <table>
+            <tr>
+                <th>Guide</th>
+                <th>Preference Order</th>
+            </tr>
+            {% for guide in guides %}
+            <tr>
+                <td>{{ guide.name }}</td>
+                <td>
+                    <select name="preference_{{ guide.guide_id }}">
+                        <option value="">Select preference</option>
+                        {% for i in range %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <br>
+        <button type="submit">Submit Preferences</button>
+    </form>
+</body>
+</html>
