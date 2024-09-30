@@ -20,3 +20,4 @@ project/project/settings.py
 # Ignore virtual environments
 venv/
 myenv/
+myenv
