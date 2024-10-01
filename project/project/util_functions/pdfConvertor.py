@@ -1,23 +1,18 @@
-import subprocess # Import subprocess module
-import os # We will use the exists() function from this module to know if the file was created.
-def convert_file_to_pdf(file_path, output_dir):
-    subprocess.run(
-        f'/usr/bin/libreoffice \
-        --headless \
-        --convert-to pdf \
-        --outdir {output_dir} {file_path}', shell=True)
-    
-    pdf_file_path = f'{output_dir}{file_path.rsplit("/", 1)[1].split(".")[0]}.pdf'
-    
-    if os.path.exists(pdf_file_path):
-        return pdf_file_path
-    else:
-        return None
-    
-file_path = 'spreadsheet.csv'
-output_dir = '.'
-file = convert_file_to_pdf(file_path, output_dir)
-if file:
-    print(f'File converted to {file}.')
-else:
-    print('Unable to convert the file.')
+import pandas as pd 
+import pdfkit 
+  
+# SAVE CSV TO HTML USING PANDAS 
+csv_file = '/home/dms-akshat/DMS/Course/Sem5/IT303/Project/MTech-Major-Project-Guide-Allotment/project/project/util_functions/sample.csv'
+html_file = csv_file[:-3]+'html'
+  
+df = pd.read_csv(csv_file, sep=',') 
+df.to_html(html_file) 
+  
+# INSTALL wkhtmltopdf AND SET PATH IN CONFIGURATION 
+# These two Steps could be eliminated By Installing wkhtmltopdf - 
+# - and setting it's path to Environment Variables 
+path_wkhtmltopdf = r'/usr/local/bin/wkhtmltopdf'
+config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf) 
+  
+# CONVERT HTML FILE TO PDF WITH PDFKIT 
+pdfkit.from_file(html_file, "FinalOutput.pdf", configuration=config) 
