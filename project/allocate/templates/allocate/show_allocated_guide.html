@@ -1,12 +1,57 @@
-<!-- templates/show_allocated_guide.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Allocated Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        h2 {
+            text-align: center;
+            color: #34495e;
+        }
+        .guide-info, .message {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .message {
+            text-align: center;
+            font-size: 18px;
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <h1>Your Allocated Guide</h1>
-    <p>Your allocated guide is: {{ guide.name }}</p>
+    <div class="container">
+        <h2>Your Allocated Guide</h2>
+        {% if guide %}
+        <div class="guide-info">
+            <p><strong>Name:</strong> {{ guide.name }}</p>
+            <p><strong>Email:</strong> {{ guide.email }}</p>
+            <p><strong>Availability Status:</strong> {{ guide.availability_status }}</p>
+        </div>
+        {% else %}
+        <div class="message">
+            <p>No guide has been allocated yet.</p>
+        </div>
+        {% endif %}
+        <a href="{% url 'check_eligibility' email=email %}">Check Eligibility Again</a>
+    </div>
 </body>
 </html>

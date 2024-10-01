@@ -111,6 +111,28 @@
             background-color: #f1f1f1;
         }
 
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -140,9 +162,12 @@
             <p><strong>Role:</strong> {{ user.role }}</p>
         </div>
 
+
         <div class="dropdown">
             <button class="dropbtn">Menu</button>
             <div class="dropdown-content">
+                <a href="{% url 'check_eligibility' email=user.email %}">Check Eligibility</a>
+                <a href="{% url 'show_allocated_guide' email=user.email %}">Allocated Guide</a>
                 <a href="{% url 'logout_view' %}">Logout</a>
                 <a href="{% url 'change_password_view' email=user.email %}">Change Password</a>
             </div>

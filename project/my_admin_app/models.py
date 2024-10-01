@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from datetime import date
 class Date(models.Model):
-    id = models.AutoField(primary_key=True)
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
 
@@ -14,7 +13,6 @@ class Guide(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     availability_status = models.CharField(max_length=100)
-    date = models.ForeignKey(Date, on_delete=models.CASCADE)  # FK to Date model
 
     def __str__(self):
         return self.name
@@ -28,7 +26,6 @@ class Student(models.Model):
     backlogs = models.IntegerField()
     cgpa = models.FloatField()
     phone_number = models.CharField(max_length=15)
-    date = models.ForeignKey(Date, on_delete=models.CASCADE)  # FK to Date model
 
     def __str__(self):
         return self.name
