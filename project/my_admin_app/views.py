@@ -27,7 +27,7 @@ def upload_csv(request):
             return HttpResponse("Invalid date format. Please use YYYY-MM-DD.")
 
         # Create a Date object
-        date_entry, created = Date.objects.get_or_create(start_date=start_date, end_date=end_date)
+        date_entry, _ = Date.objects.get_or_create(start_date=start_date, end_date=end_date)
 
         # Process guide CSV
         guide_data = csv.reader(guide_file.read().decode('utf-8').splitlines())
@@ -65,7 +65,8 @@ def upload_csv(request):
 
         return HttpResponse("CSV files uploaded and processed successfully.")
 
-    return render(request, 'my_admin_app/upload_csv.html',created)  # Render the upload template
+    # return render(request, 'my_admin_app/upload_csv.html',created)  # Render the upload template
+    return render(request, 'my_admin_app/upload_csv.html')  # Render the upload template
 
 
 # def csv_file_list(request):
