@@ -2,3 +2,5 @@
 # source myenv/bin/activate
 django == 5.1.1
 twilio
+pandas
+pdfkit
