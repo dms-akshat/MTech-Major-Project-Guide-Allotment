@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Upload CSV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 20px;
+            color: #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        /* Improved styling for form fields */
+        input[type="file"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Error and Success Messages */
+        .messages {
+            margin: 20px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .error {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .success {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .messages p {
+            margin: 0;
+        }
+
+        /* Field error messages */
+        .field-error {
+            color: #e74c3c; /* Error text color */
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Admin Dashboard</h1>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Upload CSV</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="{% url 'logout_view' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Upload Guide and Student CSV Files</h2>
+        
+        <!-- Message area for errors/success -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Guide CSV Upload -->
+            <label for="csv_file_guide">Upload Guide CSV File:</label>
+            <input type="file" id="csv_file_guide" name="csv_file_guide" accept=".csv" required />
+            {% if formss.csv_file_guide.errors %}
+                <div class="field-error">{{ formss.csv_file_guide.errors.0 }}</div>
+            {% endif %}
+
+            <!-- Student CSV Upload -->
+            <label for="csv_file_student">Upload Student CSV File:</label>
+            <input type="file" id="csv_file_student" name="csv_file_student" accept=".csv" required />
+            {% if formss.csv_file_student.errors %}
+                <div class="field-error">{{ formss.csv_file_student.errors.0 }}</div>
+            {% endif %}
+            
+            <!-- Start Date -->
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required />
+            {% if formss.start_date.errors %}
+                <div class="field-error">{{ formss.start_date.errors.0 }}</div>
+            {% endif %}
+
+            <!-- End Date -->
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required />
+            {% if formss.end_date.errors %}
+                <div class="field-error">{{ formss.end_date.errors.0 }}</div>
+            {% endif %}
+
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

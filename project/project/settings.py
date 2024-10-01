@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
+    'my_admin_app',
+    'allocate'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +127,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587  # Typically 587 for TLS or 465 for SSL
+EMAIL_USE_TLS = True  # Use TLS for secure email sending
+EMAIL_USE_SSL = False  # Set to True if using SSL
+EMAIL_HOST_USER = 'softwareproject68@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'vfzy gyom sosv orsr'  # Your email password
+DEFAULT_FROM_EMAIL = 'softwareproject68@gmail.com' # Default from address
+EMAIL_TIMEOUT=30
+
+
+TWILIO_ACCOUNT_SID = 'AC8af0bcbb930845f03e2eda42dd5bc71f'
+TWILIO_AUTH_TOKEN = '209c487c768d4a78da05dbf23e1932db'
+TWILIO_PHONE_NUMBER = '+13346001897'

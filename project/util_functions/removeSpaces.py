@@ -1,4 +1,3 @@
-import csv
 delim = ","
  
 with open("preference.csv", "r") as file:
