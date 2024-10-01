@@ -1,4 +1,4 @@
-python3 -m venv myenv
-source myenv/bin/activate
-pip install django
-pip install twilio
+# python3 -m venv myenv
+# source myenv/bin/activate
+django == 5.1.1
+twilio
