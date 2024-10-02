@@ -18,14 +18,18 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text lead">
-                            Your preference order has been successfully filled, but a guide has not been allocated yet. Please wait for further updates.
+                            Your preference order has been successfully filled, but a guide has not been allocated yet. Update if you want to.
                         </p>
                         <p class="text-muted">
                             For any queries, contact support or check back later for the status of guide allocation.
                         </p>
                         <!-- Action button to go back or redirect to home page -->
-                        <a href="{% url 'student_page' email=email %}" class="btn btn-primary mt-3">
-                            Go to Dashboard
+                        <a href="{% url 'fill_preference_order' email=email %}" class="btn btn-primary btn-lg mt-3">
+                            Go to fill form again
+                        </a>
+                        <br>
+                        <a href="{% url 'student_page' email=email %}" class="btn btn-primary btn-lg mt-3">
+                            Go to dashboard
                         </a>
                     </div>
                     <div class="card-footer text-muted">

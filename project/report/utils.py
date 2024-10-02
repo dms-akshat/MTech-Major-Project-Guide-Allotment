@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 
 def dbToCsv(table_name):
-    BASE_DIR = Path(__file__).resolve().parent.parent
+    BASE_DIR = settings.BASE_DIR
     db_path = BASE_DIR / 'db.sqlite3'
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
