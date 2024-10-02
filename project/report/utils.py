@@ -79,7 +79,7 @@ def dbToPDF(email):
     pdfConvertor(csv_file)
     # Return the name of the generated PDF file
     output_pdf = csv_file[:-3] + 'pdf'
-    #send_pdf(email,output_pdf)
+    send_pdf(email,output_pdf)
 
 def dbToCsvGuide(guide_id):
     BASE_DIR = settings.BASE_DIR
@@ -151,7 +151,7 @@ def dbToPDFGuide(guide_id, email):
         output_pdf = csv_file[:-3] + 'pdf'
         
         # Send the PDF to the provided email
-        #send_pdf(email, output_pdf)
+        send_pdf(email, output_pdf)
     else:
         # Optionally handle the case when no data is found
         print(f"No data found for guide ID: {guide_id}. PDF generation skipped.")
