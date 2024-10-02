@@ -2,7 +2,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from my_admin_app.models import Student,Guide
+from my_admin_app.models import Student
 
 class PreferenceOrder(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -15,6 +15,4 @@ class PreferenceOrder(models.Model):
             self.cgpa = self.student.cgpa
         super().save(*args, **kwargs)
 
-class AllocatedGuide(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    guide = models.ForeignKey(Guide, on_delete=models.CASCADE)
+

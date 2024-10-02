@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 import datetime
-from .models import Student, Guide, PreferenceOrder, AllocatedGuide
+from .models import Student, PreferenceOrder
+from my_admin_app.models import Guide
+from algo.models import AllocatedGuide
 from my_admin_app.models import Date
 
 def check_eligibility(request, email):

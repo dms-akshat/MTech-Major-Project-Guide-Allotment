@@ -1,10 +1,9 @@
-<!-- templates/authentication/student.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Admin Dashboard</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -125,11 +124,38 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
+        /* Styles for messages */
+        .message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .message.error {
+            background-color: #dc3545; /* Bootstrap danger */
+        }
+
+        .message.success {
+            background-color: #28a745; /* Bootstrap success */
+        }
+
+        .message.info {
+            background-color: #007bff; /* Bootstrap primary */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Admin Dashboard</h1>
+
+        <!-- Display messages -->
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
 
         <div class="user-info">
             <p>Welcome, <strong>{{ user.name }}</strong></p>
@@ -146,6 +172,7 @@
                 <a href="{% url 'logout_view' %}">Logout</a>
                 <a href="{% url 'change_password_view' email=user.email %}">Change Password</a>
                 <a href="{% url 'upload_csv' %}">Upload CSV Files</a>
+                <a href="{% url 'status' email=user.email %}">Start Report Generation</a>
             </div>
         </div>
 

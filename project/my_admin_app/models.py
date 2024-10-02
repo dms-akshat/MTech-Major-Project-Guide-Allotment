@@ -28,6 +28,9 @@ class Student(models.Model):
     backlogs = models.IntegerField()
     cgpa = models.FloatField()
     phone_number = models.CharField(max_length=15)
+    cluster = models.IntegerField(default=0)
+    allotment_status = models.CharField(max_length=30,default='Pending')
+    allotment = models.CharField(max_length=30,default='',null=True)
 
     def __str__(self):
         return self.name
