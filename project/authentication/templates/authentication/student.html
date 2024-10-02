@@ -167,7 +167,6 @@
             <button class="dropbtn">Menu</button>
             <div class="dropdown-content">
                 <a href="{% url 'check_eligibility' email=user.email %}">Check Eligibility</a>
-                <a href="{% url 'show_allocated_guide' email=user.email %}">Allocated Guide</a>
                 <a href="{% url 'logout_view' %}">Logout</a>
                 <a href="{% url 'change_password_view' email=user.email %}">Change Password</a>
             </div>

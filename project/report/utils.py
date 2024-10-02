@@ -1,9 +1,11 @@
 import sqlite3
-import csv
+import csv,os
 from pathlib import Path
 import pandas as pd 
 import pdfkit 
 import subprocess
+from django.conf import settings
+from django.core.mail import EmailMessage
 
 def dbToCsv(table_name):
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +56,7 @@ def pdfConvertor(input_file):       #put input file path as input_file
     output_file = csv_file[:-3]+'pdf'
     pdfkit.from_file(html_file, output_file, configuration=config) 
 
-def dbToPDF(table_name):
+def dbToPDF(email,table_name):
     # Step 1: Convert the database table to a CSV file using the dbToCsv function
     dbToCsv(table_name)
     # Step 2: Remove spaces from the CSV (optional, based on your requirements)
@@ -64,4 +66,27 @@ def dbToPDF(table_name):
     pdfConvertor(csv_file)
     # Return the name of the generated PDF file
     output_pdf = csv_file[:-3] + 'pdf'
-    return output_pdf
+    send_pdf(email,output_pdf)
+
+
+def send_pdf(email, pdf_name):
+    subject = 'PDF'
+    email_from = 'softwareproject68@gmail.com'
+    recipient_list = [email]
+    message = "PDF Sent!"
+    pdf_path = os.path.join(settings.BASE_DIR, 'pdfs', pdf_name)
+    # Create the email object
+    emailll = EmailMessage(subject, message, email_from, recipient_list)
+
+    try:
+        # Open the PDF file in binary mode
+        with open(pdf_path, 'rb') as f:
+            # Attach the PDF file to the email
+            emailll.attach(pdf_name, f.read(), 'application/pdf')
+
+        # Send email
+        emailll.send()
+        return "PDF sent successfully!"
+    
+    except Exception as e:
+        return f"Error sending email: {e}"

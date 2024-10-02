@@ -7,7 +7,7 @@ class GuideAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('student_id', 'roll_no', 'name','email', 'semester','cgpa','phone_number')
+    list_display = ('student_id', 'roll_no', 'name','email', 'semester','backlogs','cgpa','phone_number')
 
 @admin.register(Date)
 class Date(admin.ModelAdmin):

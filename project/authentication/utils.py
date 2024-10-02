@@ -35,25 +35,3 @@ def send_otp(email,received_otp):
     
     return received_otp, message
 
-
-def send_pdf(email, pdf_name):
-    subject = 'PDF'
-    email_from = 'vnjain2004@gmail.com'
-    recipient_list = [email]
-    message = "PDF Sent!"
-    pdf_path = os.path.join(settings.BASE_DIR, 'pdfs', pdf_name)
-    # Create the email object
-    emailll = EmailMessage(subject, message, email_from, recipient_list)
-
-    try:
-        # Open the PDF file in binary mode
-        with open(pdf_path, 'rb') as f:
-            # Attach the PDF file to the email
-            emailll.attach(pdf_name, f.read(), 'application/pdf')
-
-        # Send email
-        emailll.send()
-        return "PDF sent successfully!"
-    
-    except Exception as e:
-        return f"Error sending email: {e}"

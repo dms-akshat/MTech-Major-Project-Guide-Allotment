@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from .forms import CSVUploadForm
 import csv
 from datetime import datetime
@@ -8,12 +8,14 @@ from io import StringIO
 import os
 import subprocess  # Import subprocess for running SQL scripts
 from .utils import validate_csv_headers
+from django.conf import settings
+from pathlib import Path
 
 # views.py
 
 from .models import Guide,Student,Date  # Assuming you have a model for your CSV files
 
-
+UPLOAD_DIR = os.path.join(settings.BASE_DIR,'uploads')
 EXPECTED_GUIDE_HEADERS = ['guide_id', 'name', 'guide_mail', 'availability_status']
 EXPECTED_STUDENT_HEADERS = ['student_id', 'roll_no', 'name', 'email', 'semester', 'backlogs', 'cgpa', 'phone_number']
 
@@ -51,10 +53,33 @@ def upload_csv(request):
             if not validate_csv_headers(student_file_content, EXPECTED_STUDENT_HEADERS):
                 messages.error(request, "Invalid student file headers. Expected headers: " + ", ".join(EXPECTED_STUDENT_HEADERS))
                 return redirect('upload_csv')  # Redirect if headers are invalid
+            
+        if not os.path.exists(UPLOAD_DIR):
+            os.makedirs(UPLOAD_DIR)
+
+        guide_file_path = os.path.join(UPLOAD_DIR, guide_file.name)
+        with open(guide_file_path, 'wb+') as destination:
+            for chunk in guide_file.chunks():
+                destination.write(chunk)
+        print(f"Guide file saved at: {guide_file_path}")
+
+        # Save the student file
+        
+        student_file_path = os.path.join(UPLOAD_DIR, student_file.name)
+        with open(student_file_path, 'wb+') as destination:
+            for chunk in student_file.chunks():
+                destination.write(chunk)
+        print(f"Student file saved at: {student_file_path}")
 
         # Create a Date object after deleting the previous one
         Date.objects.all().delete()
         date_entry, _ = Date.objects.get_or_create(start_date=start_date, end_date=end_date)
+        date_entry.guide_file_name = guide_file.name
+        date_entry.student_file_name = student_file.name
+        date_entry.save()
+
+        print(f"Guide file name saved in Date: {date_entry.guide_file_name}")
+        print(f"Student file name saved in Date: {date_entry.student_file_name}")
 
         # Process guide CSV
         guide_data = csv.reader(StringIO(guide_file_content))
@@ -97,6 +122,57 @@ def upload_csv(request):
     return render(request, 'my_admin_app/upload_csv.html')
 
 
+def csv_file_list(request):
+    # Fetch the first date entry (assuming you only have one)
+    dates = Date.objects.first()
 
+    guide_file_path = None
+    student_file_path = None
+
+    if dates:
+        guide_file_path = os.path.join(UPLOAD_DIR, dates.guide_file_name) if dates.guide_file_name else None
+        student_file_path = os.path.join(UPLOAD_DIR, dates.student_file_name) if dates.student_file_name else None
+
+    # Check if files exist
+    if guide_file_path and not os.path.exists(guide_file_path):
+        messages.error(request, "Guide file not found.")
+        guide_file_path = None  # Reset if not found
+
+    if student_file_path and not os.path.exists(student_file_path):
+        messages.error(request, "Student file not found.")
+        student_file_path = None  # Reset if not found
+
+    context = {
+        'dates': dates,
+        'guide_file_path': guide_file_path,
+        'student_file_path': student_file_path,
+    }
+
+    return render(request, 'my_admin_app/csv_list.html', context)
+
+
+def download_csv(request, file_type):
+    # Determine which file to download based on file_type
+    dates = Date.objects.first()  # Assuming only one Date entry exists
+
+    if not dates:
+        messages.error(request, "No date entry found.")
+        return redirect('csv_file_list')
+
+    if file_type == 'guide':
+        file_name = dates.guide_file_name
+    elif file_type == 'student':
+        file_name = dates.student_file_name
+    else:
+        messages.error(request, "Invalid file type requested.")
+        return redirect('csv_file_list')
+
+    file_path = os.path.join(UPLOAD_DIR, file_name)
+
+    if os.path.exists(file_path):
+        return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=file_name)
+    else:
+        messages.error(request, "File not found.")
+        return redirect('csv_file_list')
 
 

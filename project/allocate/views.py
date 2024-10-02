@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Student, Guide, PreferenceOrder, AllocatedGuide
+from my_admin_app.models import Date
 
 def check_eligibility(request, email):
     # Get the student object or return a 404 error if not found
@@ -8,7 +9,11 @@ def check_eligibility(request, email):
     
     # Check if a guide has been allocated
     exist_guide = AllocatedGuide.objects.filter(student=student)
+    date = Date.objects.first()
     
+
+
+
     if not exist_guide.exists():
         # Set a message indicating that the preference order needs to be filled
         messages.info(request, "You have not filled your preference order yet. Please fill it now.")
@@ -96,3 +101,8 @@ def show_allocated_guide(request, email):
             'email': email
         })
     return render(request, 'allocate/show_allocated_guide.html', {'guide': allocated_guide.guide,'email':email})
+
+def preference_filled_no_guide_yet(request, email):
+    return render(request, 'allocate/preference_filled_no_guide_yet.html', {
+        'email': email,
+    })

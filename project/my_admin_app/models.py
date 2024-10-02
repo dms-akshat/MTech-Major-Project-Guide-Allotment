@@ -4,6 +4,8 @@ from datetime import date
 class Date(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
+    guide_file_name = models.CharField(max_length=255, blank=True, null=True)
+    student_file_name = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"From {self.start_date} to {self.end_date}"
