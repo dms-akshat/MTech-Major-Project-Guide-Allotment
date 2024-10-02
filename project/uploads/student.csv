@@ -3,3 +3,4 @@ student_id,roll_no,name,email,semester,backlogs,cgpa,phone_number
 2,102,Bob Smith,bob.smith@example.com,5,1,3.2,8765432109
 3,103,Charlie Brown,charlie.brown@example.com,4,0,3.8,7654321098
 4,104,Diana Prince,diana.prince@example.com,3,2,2.9,6543210987
+5,105,Shashank Jain,shashank45jain@gmail.com,3,0,10,7985864438

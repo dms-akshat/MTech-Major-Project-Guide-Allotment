@@ -79,7 +79,7 @@ def dbToPDF(email):
     pdfConvertor(csv_file)
     # Return the name of the generated PDF file
     output_pdf = csv_file[:-3] + 'pdf'
-    #send_pdf(email,output_pdf)
+    send_pdf(email,output_pdf)
 
 def dbToCsvGuide(guide_id):
     BASE_DIR = settings.BASE_DIR

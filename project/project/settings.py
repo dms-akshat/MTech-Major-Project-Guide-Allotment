@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
-
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,12 +136,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Typically 587 for TLS or 465 for SSL
 EMAIL_USE_TLS = True  # Use TLS for secure email sending
 EMAIL_USE_SSL = False  # Set to True if using SSL
-EMAIL_HOST_USER = 'softwareproject68@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'vfzy gyom sosv orsr'  # Your email password
-DEFAULT_FROM_EMAIL = 'softwareproject68@gmail.com' # Default from address
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your email address
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Your email password
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL') # Default from address
 EMAIL_TIMEOUT=30
-
-
-TWILIO_ACCOUNT_SID = 'AC8af0bcbb930845f03e2eda42dd5bc71f'
-TWILIO_AUTH_TOKEN = 'a82faba8cd57a703fe54106fb83b0a03'
-TWILIO_PHONE_NUMBER = '+13346001897'
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')

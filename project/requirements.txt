@@ -4,3 +4,5 @@ django == 5.1.1
 twilio
 pandas
 pdfkit
+wkhtmltopdf
+python-dotenvnv
