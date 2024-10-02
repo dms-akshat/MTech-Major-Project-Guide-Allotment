@@ -5,4 +5,4 @@ twilio
 pandas
 pdfkit
 wkhtmltopdf
-python-dotenvnv
+python-dotenv == 1.0.1
