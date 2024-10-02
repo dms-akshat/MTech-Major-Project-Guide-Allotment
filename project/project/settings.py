@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure--4+9j$^#m#+fl8cybw+amd=8t26!zs4y#l+*8#+23(w18zzd73
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["mtech-major-project-guide-allotment.onrender.com"]
+ALLOWED_HOSTS = ['mtech-major-project-guide-allotment.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -55,6 +55,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://mtech-major-project-guide-allotment.onrender.com',
+    'http://mtech-major-project-guide-allotment.onrender.com',
 ]
 
 ROOT_URLCONF = 'project.urls'

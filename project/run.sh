@@ -6,9 +6,9 @@ python manage.py migrate
 # A shell script to automatically create a Django superuser if it doesn't already exist
 
 # Define superuser credentials
-SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-"admin@example.com"}
+SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-"admin@gmail.com"}
 SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME:-"admin"}
-SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-"adminpass123"}
+SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD:-"root"}
 
 # Navigate to the Django project directory (adjust path if necessary)
 PROJECT_DIR="/path/to/your/django/project"
