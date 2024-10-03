@@ -1,10 +1,11 @@
 import requests
 import time
+from my_admin_app.models import Guide
 
 def send_clashmail(student_data, professor):
     # Deployment URL of the Google Apps Script Web App
     deployment_url = 'https://script.google.com/macros/s/AKfycbyZK-lh1tmi2_OWGe7Bw3wL89Cl4hT3tEb8-uTj7WN8rX5urIEcOwW3SUiF01dU7SR9Ug/exec'
-    professor_email = 'rohithraichu@gmail.com'
+    professor_email = professor #Guide.objects.get(professor).email
 
     payload = {
         'action': 'createForm',

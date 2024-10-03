@@ -1,16 +1,16 @@
-<!-- templates/authentication/faculty.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+    <title>Faculty Dashboard</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f5f5f5;
+            background-color: #1a1a1a; /* Dark background */
+            color: #ddd; /* Light text */
             margin: 0;
             padding: 0;
         }
@@ -19,15 +19,15 @@
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background-color: white;
+            background-color: #333;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             position: relative; /* Positioning context for dropdown */
         }
 
         h1 {
             font-weight: 500;
-            color: #333;
+            color: #f5f5f5;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -35,18 +35,18 @@
         .user-info {
             background-color: #007bff;
             color: white;
-            padding: 15px;
+            padding: 15px; /* Original padding size */
             border-radius: 4px;
             text-align: center;
         }
 
         .user-info p {
             margin: 10px 0;
-            font-size: 18px;
+            font-size: 18px; /* Original font size */
         }
 
         .user-info p strong {
-            font-size: 20px;
+            font-size: 20px; /* Original font size */
             color: #f5f5f5;
         }
 
@@ -57,7 +57,7 @@
 
         .details p {
             font-size: 16px;
-            color: #555;
+            color: #ccc; /* Light text for details */
             margin-bottom: 10px;
         }
 
@@ -89,7 +89,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
+            background-color: #444;
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
@@ -101,14 +101,15 @@
         }
 
         .dropdown-content a {
-            color: black;
+            color: white;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            background-color: #333; /* Dark dropdown background */
         }
 
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
+            background-color: #555;
         }
 
         .footer {

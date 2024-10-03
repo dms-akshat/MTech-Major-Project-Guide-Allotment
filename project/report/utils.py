@@ -100,7 +100,7 @@ def dbToCsvGuide(guide_id):
             FROM algo_allocatedguide AS allocatedguide
             JOIN my_admin_app_student AS student ON allocatedguide.student_id = student.id
             JOIN my_admin_app_guide AS guide ON allocatedguide.guide_id = guide.id
-            WHERE guide.id = ?
+            WHERE guide.guide_id = ?
         """
 
         
