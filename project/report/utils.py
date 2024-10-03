@@ -100,7 +100,7 @@ def dbToCsvGuide(guide_id):
             FROM algo_allocatedguide AS allocatedguide
             JOIN my_admin_app_student AS student ON allocatedguide.student_id = student.id
             JOIN my_admin_app_guide AS guide ON allocatedguide.guide_id = guide.id
-            WHERE guide.id = ?
+            WHERE guide.guide_id = ?
         """
 
         
@@ -151,7 +151,7 @@ def dbToPDFGuide(guide_id, email):
         output_pdf = csv_file[:-3] + 'pdf'
         
         # Send the PDF to the provided email
-        #send_pdf(email, output_pdf)
+        send_pdf(email, output_pdf)
     else:
         # Optionally handle the case when no data is found
         print(f"No data found for guide ID: {guide_id}. PDF generation skipped.")

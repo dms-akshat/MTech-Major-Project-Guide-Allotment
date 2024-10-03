@@ -12,7 +12,8 @@
     <style>
       body {
         font-family: "Roboto", sans-serif;
-        background-color: #f5f5f5;
+        background-color: #1a1a1a; /* Dark background */
+        color: #ddd; /* Light text color */
         margin: 0;
         padding: 0;
       }
@@ -21,15 +22,15 @@
         max-width: 600px;
         margin: 50px auto;
         padding: 20px;
-        background-color: white;
+        background-color: #333; /* Darker container */
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         position: relative; /* Positioning context for dropdown */
       }
 
       h1 {
         font-weight: 500;
-        color: #333;
+        color: #fff; /* White text for heading */
         text-align: center;
         margin-bottom: 20px;
       }
@@ -42,16 +43,15 @@
           0,
           0.3
         ); /* Light transparent red background */
-        color: #333;
+        color: #fff;
         border-radius: 3px;
-        font-size: 14px; /* Smaller font size */
-        text-align: center; /* Center align text */
-        display: inline-block; /* Use inline-flex for centering */
-        align-items: center; /* Center content vertically */
-        padding: 0px 0px; /* Small padding for readability */
+        font-size: 14px;
+        text-align: center;
+        display: inline-block;
+        align-items: center;
+        padding: 5px 10px;
         margin-left: 45%;
         margin-top: 3px;
-        margin: bottom 0px;; /* Center the messages box */
         width: fit-content;
       }
 
@@ -80,12 +80,12 @@
 
       .details p {
         font-size: 16px;
-        color: #555;
+        color: #ccc; /* Light grey text for details */
         margin-bottom: 10px;
       }
 
       .details p strong {
-        color: #007bff;
+        color: #1e90ff; /* Bright blue for labels */
       }
 
       .dropdown {
@@ -95,7 +95,7 @@
       }
 
       .dropbtn {
-        background-color: #007bff;
+        background-color: #1e90ff; /* Blue button */
         color: white;
         padding: 10px 20px;
         font-size: 16px;
@@ -112,11 +112,11 @@
       .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
+        background-color: #444; /* Dark background for dropdown */
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
-        right: 0; /* Align dropdown to the right */
+        right: 0;
       }
 
       .dropdown:hover .dropdown-content {
@@ -124,14 +124,14 @@
       }
 
       .dropdown-content a {
-        color: black;
+        color: #ddd; /* Light text for links */
         padding: 12px 16px;
         text-decoration: none;
         display: block;
       }
 
       .dropdown-content a:hover {
-        background-color: #f1f1f1;
+        background-color: #555; /* Slightly lighter background on hover */
       }
 
       .button-container {
@@ -145,7 +145,7 @@
         margin: 10px;
         font-size: 16px;
         color: white;
-        background-color: #007bff;
+        background-color: #1e90ff;
         border: none;
         border-radius: 4px;
         text-decoration: none;
@@ -163,7 +163,7 @@
       }
 
       .footer a {
-        color: #007bff;
+        color: #1e90ff;
         text-decoration: none;
       }
 
@@ -197,13 +197,9 @@
       <div class="dropdown">
         <button class="dropbtn">Menu</button>
         <div class="dropdown-content">
-          <a href="{% url 'check_eligibility' email=user.email %}"
-            >Check Eligibility</a
-          >
+          <a href="{% url 'check_eligibility' email=user.email %}">Check Eligibility</a>
           <a href="{% url 'logout_view' %}">Logout</a>
-          <a href="{% url 'change_password_view' email=user.email %}"
-            >Change Password</a
-          >
+          <a href="{% url 'change_password_view' email=user.email %}">Change Password</a>
         </div>
       </div>
 

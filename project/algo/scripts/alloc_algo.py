@@ -141,7 +141,7 @@ def alloc_algorithm():
             # Resolve conflicts again
             for professor, students in conflicts.items():
                 if len(students) > 1:
-                    selected_student_name = resolve_clash(students, professor)
+                    selected_student_name = resolve_clash(students, Guide.objects.get(guide_id=professor).email)
                     for student in students:
                         if student.roll_no == selected_student_name:
                             student.allotment = professor

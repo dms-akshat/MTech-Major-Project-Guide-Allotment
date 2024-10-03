@@ -19,7 +19,8 @@ UPLOAD_DIR = os.path.join(settings.BASE_DIR,'uploads')
 EXPECTED_GUIDE_HEADERS = ['guide_id', 'name', 'guide_mail', 'availability_status']
 EXPECTED_STUDENT_HEADERS = ['student_id', 'roll_no', 'name', 'email', 'semester', 'backlogs', 'cgpa', 'phone_number']
 
-def upload_csv(request):
+def upload_csv(request, email):
+    emailll=email
     if request.method == "POST":
         guide_file = request.FILES.get('csv_file_guide')
         student_file = request.FILES.get('csv_file_student')
@@ -31,11 +32,11 @@ def upload_csv(request):
             start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
             end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
             if start_date >= end_date:
-                messages.error(request, "End date cannot be before start date")
-                return redirect('upload_csv')
+                messages.error(request, "End date cannot be before start date.")
+                return redirect('upload_csv', email=email)
         except ValueError:
             messages.error(request, "Invalid date format. Please use YYYY-MM-DD.")
-            return redirect('upload_csv')
+            return redirect('upload_csv', email=email)
 
         # Read guide file content into memory
         guide_file_content = guide_file.read().decode('utf-8')
@@ -46,14 +47,14 @@ def upload_csv(request):
         if guide_file:
             if not validate_csv_headers(guide_file_content, EXPECTED_GUIDE_HEADERS):
                 messages.error(request, "Invalid guide file headers. Expected headers: " + ", ".join(EXPECTED_GUIDE_HEADERS))
-                return redirect('upload_csv')  # Redirect if headers are invalid
+                return redirect('upload_csv', email=email)  # Redirect if headers are invalid
             
         # Validate CSV headers for student file
         if student_file:
             if not validate_csv_headers(student_file_content, EXPECTED_STUDENT_HEADERS):
                 messages.error(request, "Invalid student file headers. Expected headers: " + ", ".join(EXPECTED_STUDENT_HEADERS))
-                return redirect('upload_csv')  # Redirect if headers are invalid
-            
+                return redirect('upload_csv', email=email)  # Redirect if headers are invalid
+
         if not os.path.exists(UPLOAD_DIR):
             os.makedirs(UPLOAD_DIR)
 
@@ -64,7 +65,6 @@ def upload_csv(request):
         print(f"Guide file saved at: {guide_file_path}")
 
         # Save the student file
-        
         student_file_path = os.path.join(UPLOAD_DIR, student_file.name)
         with open(student_file_path, 'wb+') as destination:
             for chunk in student_file.chunks():
@@ -113,17 +113,15 @@ def upload_csv(request):
                     'backlogs': backlogs,
                     'cgpa': cgpa,
                     'phone_number': phone_number,
-                    
                 }
             )
-
+        email=emailll
         messages.success(request, "CSV files uploaded and processed successfully.")
-        return redirect('csv_file_list')
+        return redirect('csv_file_list', email=email)
 
-    return render(request, 'my_admin_app/upload_csv.html')
+    return render(request, 'my_admin_app/upload_csv.html', {'email': email})
 
-
-def csv_file_list(request):
+def csv_file_list(request, email):
     # Fetch the first date entry (assuming you only have one)
     dates = Date.objects.first()
 
@@ -147,18 +145,20 @@ def csv_file_list(request):
         'dates': dates,
         'guide_file_path': guide_file_path,
         'student_file_path': student_file_path,
+        'email': email,  # Pass email to context
     }
 
     return render(request, 'my_admin_app/csv_list.html', context)
 
 
-def download_csv(request, file_type):
+
+def download_csv(request, file_type, email):
     # Determine which file to download based on file_type
     dates = Date.objects.first()  # Assuming only one Date entry exists
 
     if not dates:
         messages.error(request, "No date entry found.")
-        return redirect('csv_file_list')
+        return redirect('csv_file_list', email=email)  # Include email in redirection
 
     if file_type == 'guide':
         file_name = dates.guide_file_name
@@ -166,7 +166,7 @@ def download_csv(request, file_type):
         file_name = dates.student_file_name
     else:
         messages.error(request, "Invalid file type requested.")
-        return redirect('csv_file_list')
+        return redirect('csv_file_list', email=email)  # Include email in redirection
 
     file_path = os.path.join(UPLOAD_DIR, file_name)
 
@@ -174,6 +174,6 @@ def download_csv(request, file_type):
         return FileResponse(open(file_path, 'rb'), as_attachment=True, filename=file_name)
     else:
         messages.error(request, "File not found.")
-        return redirect('csv_file_list')
+        return redirect('csv_file_list', email=email)  # Include email in redirection
 
 
