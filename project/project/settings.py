@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'authentication',
     'my_admin_app',
     'allocate',
-    'algo'
+    'algo',
+    'captcha',
 ]
 
 MIDDLEWARE = [
