@@ -1,6 +1,6 @@
-pip install -r requirements.txt
-python manage.py makemigrations
-python manage.py migrate
+pip3 install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
 #!/bin/bash
 
 # A shell script to automatically create a Django superuser if it doesn't already exist
@@ -20,7 +20,7 @@ cd $PROJECT_DIR
 
 # Check if the superuser exists
 echo "Checking if superuser $SUPERUSER_USERNAME exists..."
-EXISTS=$(echo "from django.contrib.auth.models import User; print(User.objects.filter(username='$SUPERUSER_USERNAME').exists())" | python manage.py shell)
+EXISTS=$(echo "from django.contrib.auth.models import User; print(User.objects.filter(username='$SUPERUSER_USERNAME').exists())" | python3 manage.py shell)
 
 if [ "$EXISTS" = "True" ]; then
     echo "Superuser $SUPERUSER_USERNAME already exists. No need to create."
@@ -28,10 +28,10 @@ else
     echo "Creating superuser $SUPERUSER_USERNAME..."
 
     # Create the superuser non-interactively using Django's manage.py
-    python manage.py createsuperuser --noinput --email "$SUPERUSER_EMAIL" --username "$SUPERUSER_USERNAME"
+    python3 manage.py createsuperuser --noinput --email "$SUPERUSER_EMAIL" --username "$SUPERUSER_USERNAME"
 
     # Use the Django shell to set the password for the superuser
-    echo "from django.contrib.auth.models import User; user = User.objects.get(username='$SUPERUSER_USERNAME'); user.set_password('$SUPERUSER_PASSWORD'); user.save();" | python manage.py shell
+    echo "from django.contrib.auth.models import User; user = User.objects.get(username='$SUPERUSER_USERNAME'); user.set_password('$SUPERUSER_PASSWORD'); user.save();" | python3 manage.py shell
 
     echo "Superuser $SUPERUSER_USERNAME created successfully!"
 fi

@@ -37,6 +37,15 @@ def upload_csv(request, email):
         except ValueError:
             messages.error(request, "Invalid date format. Please use YYYY-MM-DD.")
             return redirect('upload_csv', email=email)
+        
+        file_extension1 = os.path.splitext(guide_file.name)[1].lower()
+        file_extension2 = os.path.splitext(student_file.name)[1].lower()
+
+        # Check for unsupported file formats
+        if file_extension1 not in ['.csv', '.xlsx'] or file_extension2 not in ['.csv', '.xlsx']:
+            messages.error(request, "Unsupported file format! Please upload a CSV or XLSX file.")
+            return redirect('upload_csv')
+
 
         # Read guide file content into memory
         guide_file_content = guide_file.read().decode('utf-8')
