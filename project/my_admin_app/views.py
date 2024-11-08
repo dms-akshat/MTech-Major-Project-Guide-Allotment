@@ -44,7 +44,7 @@ def upload_csv(request, email):
         # Check for unsupported file formats
         if file_extension1 not in ['.csv', '.xlsx'] or file_extension2 not in ['.csv', '.xlsx']:
             messages.error(request, "Unsupported file format! Please upload a CSV or XLSX file.")
-            return redirect('upload_csv')
+            return redirect('upload_csv', email=email)
 
 
         # Read guide file content into memory
