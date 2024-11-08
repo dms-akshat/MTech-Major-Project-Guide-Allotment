@@ -20,14 +20,19 @@ def send_clashmail(student_data, professor):
     print("Form Creation Response -> ", response.text)  # This will print the form URL
 
     # Wait for the professor to fill the form (e.g., 2 minutes)
-    time.sleep(30)
+    while True:
+        time.sleep(1)
+        print("buffer")
+        payload = {'action': 'getFormResponse'}
+        response = requests.post(deployment_url, json=payload)
+        print("Form Response -> ", response.text)  # This will print the selected student
+        if response.text == "No responses found.":
+            continue
+        else:
+            selected_student = response.text
+            break
 
-    # Send GET request to retrieve the selected student
-    payload = {'action': 'getFormResponse'}
-    response = requests.post(deployment_url, json=payload)
-    print("Form Response -> ", response.text)  # This will print the selected student
-
-    selected_student = response.text
+    
 
     payload = {'action' : 'resetForm'}
     response = requests.post(deployment_url, json=payload)
